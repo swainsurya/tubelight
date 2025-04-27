@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // for Google icon
 import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 export default function SignupScreen({ navigation }) {
   const [fullName, setFullName] = useState('');
@@ -20,6 +21,7 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+        <StatusBar backgroundColor='#eef6f9' />
       {/* Tubelight Logo */}
       <Text style={styles.logo}>Tubelight</Text>
 

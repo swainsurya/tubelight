@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // for Google icon (if you use Expo)
 import { router } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -18,7 +20,8 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor='#eef6f9' />
       {/* Tubelight Logo */}
       <Text style={styles.logo}>Tubelight</Text>
 
@@ -65,7 +68,7 @@ export default function LoginScreen({ navigation }) {
           Don't have an account? <Text style={styles.signupLink}>Sign Up</Text>
         </Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
