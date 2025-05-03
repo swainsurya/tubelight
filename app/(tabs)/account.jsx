@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link, router } from 'expo-router';
+import { useLocalSearchParams, useSearchParams } from 'expo-router/build/hooks';
 
 // Dummy Data for posts
 const posts = [
@@ -23,10 +25,15 @@ const posts = [
 ];
 
 export default function ProfileScreen() {
-  const [profilePic, setProfilePic] = useState('https://randomuser.me/api/portraits/men/1.jpg');
+  const {id} = useLocalSearchParams();
+  const [profilePic, setProfilePic] = useState(`https://randomuser.me/api/portraits/men/${id || 1}.jpg`);
   const [followers, setFollowers] = useState(150);
   const [following, setFollowing] = useState(180);
   const [username, setUsername] = useState('john_doe');
+
+  useEffect(()=>{
+    setProfilePic(`https://randomuser.me/api/portraits/men/${id}.jpg`);
+  },[id])
 
   // Function to pick profile image
   const pickProfileImage = async () => {
@@ -61,10 +68,10 @@ export default function ProfileScreen() {
 
       {/* Followers and Following */}
       <View style={styles.statsContainer}>
-        <View style={styles.statsItem}>
+        <TouchableOpacity onPress={() => router.push("/(others)/FollowersScreen")} style={styles.statsItem}>
           <Text style={styles.statsNumber}>{followers}</Text>
           <Text style={styles.statsLabel}>Followers</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.statsItem}>
           <Text style={styles.statsNumber}>{following}</Text>
           <Text style={styles.statsLabel}>Following</Text>

@@ -1,3 +1,4 @@
+import { Link, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
@@ -56,6 +57,24 @@ const stories = [
     userImage: 'https://randomuser.me/api/portraits/men/3.jpg',
     isActive: true,
   },
+  {
+    id: '4',
+    username: 'john_doe',
+    userImage: 'https://randomuser.me/api/portraits/men/1.jpg',
+    isActive: true,
+  },
+  {
+    id: '5',
+    username: 'jane_smith',
+    userImage: 'https://randomuser.me/api/portraits/women/2.jpg',
+    isActive: false,
+  },
+  {
+    id: '6',
+    username: 'alex_23',
+    userImage: 'https://randomuser.me/api/portraits/men/3.jpg',
+    isActive: true,
+  },
 ];
 
 export default function HomeFeedScreen() {
@@ -77,10 +96,13 @@ export default function HomeFeedScreen() {
   const renderPost = ({ item, index }) => (
     <View style={styles.postContainer}>
       {/* Post Header */}
-      <View style={styles.header}>
+      <Link href={{
+        pathname: "/account",
+        params: {id: index+1}
+      }} style={styles.header}>
         <Image source={{ uri: item.userImage }} style={styles.userImage} />
         <Text style={styles.username}>{item.username}</Text>
-      </View>
+      </Link>
 
       {/* Post Image */}
       <Image source={{ uri: item.postImage }} style={styles.postImage} />
@@ -108,12 +130,12 @@ export default function HomeFeedScreen() {
   );
 
   const renderStory = ({ item }) => (
-    <View style={styles.storyContainer}>
+    <TouchableOpacity style={styles.storyContainer}>
       <View style={[styles.storyImageContainer, item.isActive && styles.activeStory]}>
         <Image source={{ uri: item.userImage }} style={styles.storyImage} />
       </View>
       <Text style={styles.storyUsername}>{item.username}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
